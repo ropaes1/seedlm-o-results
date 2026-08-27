@@ -1,0 +1,15 @@
+# environments
+.venv/
+__pycache__/
+*.pyc
+
+# large / regenerable artifacts
+models/
+cache/
+*.gguf
+*.safetensors
+ref_logits/
+
+# secrets
+.env
+.gstack/

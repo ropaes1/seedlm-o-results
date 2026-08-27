@@ -1,0 +1,12 @@
+{
+  "variant": "rtn4",
+  "dual_mean_kl": 0.014234671369194984,
+  "cached_mean_kl": 0.014234671369194984,
+  "abs_delta": 0.0,
+  "tol": 1e-06,
+  "pass": true,
+  "layers_limit": 2,
+  "stack": "test-laptop|NVIDIA GeForce RTX 5070 Laptop GPU|torch2.11.0+cu128",
+  "dual_top1": 96.96531791907515,
+  "cached_top1": 96.96531791907515
+}

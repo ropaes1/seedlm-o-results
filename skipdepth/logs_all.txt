@@ -1,0 +1,54 @@
+[skip] loading /workspace/models/originals/Qwen3-1.7B bf16 on cuda ...
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:   0%|          | 1/311 [00:02<12:41,  2.46s/it]Loading weights:   2%|▏         | 5/311 [00:02<02:10,  2.35it/s]Loading weights:   4%|▍         | 12/311 [00:02<00:44,  6.79it/s]Loading weights:   5%|▌         | 16/311 [00:03<00:33,  8.71it/s]Loading weights:   7%|▋         | 23/311 [00:03<00:20, 14.30it/s]Loading weights:   9%|▊         | 27/311 [00:03<00:22, 12.73it/s]Loading weights:  12%|█▏        | 37/311 [00:03<00:13, 19.81it/s]Loading weights:  13%|█▎        | 41/311 [00:04<00:13, 19.59it/s]Loading weights:  15%|█▌        | 48/311 [00:04<00:11, 23.61it/s]Loading weights:  17%|█▋        | 52/311 [00:04<00:11, 21.94it/s]Loading weights:  20%|█▉        | 61/311 [00:04<00:07, 32.00it/s]Loading weights:  22%|██▏       | 67/311 [00:04<00:06, 35.95it/s]Loading weights:  23%|██▎       | 72/311 [00:04<00:08, 29.33it/s]Loading weights:  25%|██▌       | 78/311 [00:05<00:06, 33.34it/s]Loading weights:  27%|██▋       | 83/311 [00:05<00:07, 28.90it/s]Loading weights:  29%|██▊       | 89/311 [00:05<00:06, 34.33it/s]Loading weights:  30%|███       | 94/311 [00:05<00:06, 35.38it/s]Loading weights:  32%|███▏      | 99/311 [00:05<00:05, 35.34it/s]Loading weights:  33%|███▎      | 103/311 [00:05<00:05, 36.21it/s]Loading weights:  34%|███▍      | 107/311 [00:05<00:05, 36.24it/s]Loading weights:  37%|███▋      | 114/311 [00:06<00:05, 38.80it/s]Loading weights:  38%|███▊      | 119/311 [00:06<00:05, 35.33it/s]Loading weights:  40%|███▉      | 123/311 [00:06<00:05, 34.44it/s]Loading weights:  42%|████▏     | 131/311 [00:06<00:04, 44.90it/s]Loading weights:  44%|████▎     | 136/311 [00:06<00:04, 38.05it/s]Loading weights:  45%|████▌     | 141/311 [00:06<00:04, 36.45it/s]Loading weights:  49%|████▉     | 152/311 [00:06<00:03, 52.59it/s]Loading weights:  51%|█████     | 158/311 [00:07<00:04, 36.62it/s]Loading weights:  52%|█████▏    | 163/311 [00:07<00:03, 37.08it/s]Loading weights:  54%|█████▍    | 168/311 [00:07<00:04, 29.15it/s]Loading weights:  55%|█████▌    | 172/311 [00:07<00:04, 28.53it/s]Loading weights:  58%|█████▊    | 180/311 [00:07<00:04, 30.96it/s]Loading weights:  59%|█████▉    | 184/311 [00:08<00:04, 30.53it/s]Loading weights:  62%|██████▏   | 193/311 [00:08<00:02, 41.15it/s]Loading weights:  64%|██████▍   | 200/311 [00:08<00:02, 44.54it/s]Loading weights:  66%|██████▌   | 205/311 [00:08<00:03, 29.50it/s]Loading weights:  70%|███████   | 218/311 [00:08<00:02, 45.79it/s]Loading weights:  72%|███████▏  | 225/311 [00:09<00:02, 37.50it/s]Loading weights:  75%|███████▌  | 234/311 [00:09<00:01, 45.32it/s]Loading weights:  77%|███████▋  | 240/311 [00:09<00:01, 38.60it/s]Loading weights:  79%|███████▉  | 246/311 [00:09<00:01, 39.66it/s]Loading weights:  81%|████████  | 251/311 [00:09<00:01, 32.40it/s]Loading weights:  82%|████████▏ | 255/311 [00:09<00:01, 31.23it/s]Loading weights:  83%|████████▎ | 259/311 [00:10<00:02, 20.55it/s]Loading weights:  86%|████████▌ | 268/311 [00:10<00:01, 29.76it/s]Loading weights:  88%|████████▊ | 273/311 [00:10<00:01, 29.11it/s]Loading weights:  90%|█████████ | 281/311 [00:10<00:00, 34.36it/s]Loading weights:  92%|█████████▏| 287/311 [00:10<00:00, 38.88it/s]Loading weights:  94%|█████████▍| 292/311 [00:11<00:00, 32.34it/s]Loading weights:  96%|█████████▌| 299/311 [00:11<00:00, 37.29it/s]Loading weights:  98%|█████████▊| 304/311 [00:11<00:00, 28.11it/s]Loading weights: 100%|█████████▉| 310/311 [00:11<00:00, 33.44it/s]Loading weights: 100%|██████████| 311/311 [00:11<00:00, 26.53it/s]
+[skip] loaded 28 layers in 154.4s | stack=8ebd2f131f8f|NVIDIA GeForce RTX 4090|torch2.11.0+cu128
+[skip] reference: reusing reference.json fp=6f7a7d9b5d3fd99d
+[skip] ref_logits: 12 prompts, 0.44 GB fp32 resident (2.1s)
+[skip] === ANCHOR (acceptance #3) ===
+[skip] SKIP  0-anchor   none                               already in results.jsonl (KL=0.0000)
+[skip] ANCHOR PASS: mean_kl=0.0 top1=100.0% positions=731 base_bytes/token=3441.1 MB
+[skip] === STAGE 1: single-layer scan (28 evals) ===
+[skip] EVAL 1-single   full[0]                            KL=14.1837 p95=26.8038 top1=2.05% bytes-=2.9% (0.6s)
+[skip] EVAL 1-single   full[1]                            KL=1.9219 p95=11.5176 top1=75.79% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[2]                            KL=4.4894 p95=18.1903 top1=52.80% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[3]                            KL=0.1950 p95=0.8934 top1=92.07% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[4]                            KL=0.4674 p95=1.8681 top1=88.10% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[5]                            KL=0.2710 p95=1.3667 top1=89.60% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[6]                            KL=0.4176 p95=2.3125 top1=87.28% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[7]                            KL=0.2762 p95=1.5265 top1=88.65% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[8]                            KL=0.4562 p95=2.4283 top1=86.05% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[9]                            KL=0.4420 p95=2.4198 top1=85.09% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[10]                           KL=0.3586 p95=1.6303 top1=87.69% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[11]                           KL=0.3801 p95=1.7546 top1=87.41% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[12]                           KL=0.2546 p95=1.1501 top1=90.83% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[13]                           KL=0.1965 p95=0.9884 top1=91.38% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[14]                           KL=0.2305 p95=1.2424 top1=90.01% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[15]                           KL=0.1961 p95=1.0862 top1=90.01% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[16]                           KL=0.2292 p95=1.1871 top1=89.33% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[17]                           KL=0.3260 p95=1.8456 top1=87.14% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[18]                           KL=0.2467 p95=1.2219 top1=89.19% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[19]                           KL=0.3953 p95=1.7895 top1=85.91% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[20]                           KL=0.4473 p95=2.0343 top1=87.96% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[21]                           KL=0.4708 p95=1.9933 top1=87.55% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[22]                           KL=0.3152 p95=1.2698 top1=89.74% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[23]                           KL=0.2645 p95=1.1788 top1=90.56% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[24]                           KL=0.1526 p95=0.9739 top1=90.56% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[25]                           KL=0.2194 p95=1.3115 top1=90.56% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[26]                           KL=0.1780 p95=0.9597 top1=90.70% bytes-=2.9% (0.4s)
+[skip] EVAL 1-single   full[27]                           KL=0.1449 p95=0.6858 top1=91.79% bytes-=2.9% (0.4s)
+[skip] STAGE 1 best single skip: L27 KL=0.1449
+[skip] === STAGE 2: contiguous blocks (cap 12 evals) ===
+[skip] EVAL 2-contig   full[26,27]                        KL=0.5738 p95=3.5928 top1=84.13% bytes-=5.9% (0.4s)
+[skip] EVAL 2-contig   full[24,25]                        KL=0.5620 p95=3.4896 top1=84.27% bytes-=5.9% (0.3s)
+[skip] EVAL 2-contig   full[25,26]                        KL=1.0685 p95=4.2335 top1=78.11% bytes-=5.9% (0.3s)
+[skip] EVAL 2-contig   full[25,26,27]                     KL=1.4225 p95=7.3947 top1=74.15% bytes-=8.8% (0.3s)
+[skip] EVAL 2-contig   full[24,25,26]                     KL=3.2951 p95=7.7813 top1=62.24% bytes-=8.8% (0.3s)
+[skip] EVAL 2-contig   full[13,14,15]                     KL=0.7665 p95=4.0207 top1=78.52% bytes-=8.8% (0.3s)
+[skip] EVAL 2-contig   full[24,25,26,27]                  KL=2.5664 p95=12.8467 top1=65.12% bytes-=11.7% (0.3s)
+[skip] EVAL 2-contig   full[23,24,25,26]                  KL=5.1231 p95=9.5241 top1=51.98% bytes-=11.7% (0.3s)
+[skip] EVAL 2-contig   full[13,14,15,16]                  KL=1.0747 p95=4.7357 top1=70.18% bytes-=11.7% (0.3s)
+[skip] EVAL 2-contig   full[22,23,24,25,26,27]            KL=3.4881 p95=14.7861 top1=54.58% bytes-=17.6% (0.3s)
+[skip] EVAL 2-contig   full[13,14,15,16,17,18]            KL=2.3302 p95=8.0906 top1=46.92% bytes-=17.6% (0.3s)
+[skip] EVAL 2-contig   full[12,13,14,15,16,17]            KL=1.9430 p95=7.4134 top1=52.12% bytes-=17.6% (0.4s)
+[skip] STAGE 2 best 4-layer contiguous: full[13,14,15,16] KL=1.0747
+[skip] STOP-LOSS: best 4-layer pattern KL 1.0747 > 1.0. Skipping stages 3-5.
+[skip] === STOP-LOSS after stage 2: best 4-layer pattern > 1.0 KL. Stages 3-5 are not funded. ===
