@@ -1,6 +1,6 @@
 # Where the Error Goes: A Measured Ceiling for Seeded-Basis Weight Compression, and What the Failure Taught Us About Proxies
 
-*SeedLM+O authors, 2026*
+*Ricardo O. Paes, 2026*
 
 Every number below is measured.
 
@@ -672,6 +672,16 @@ which is a research project in its own right.
   They are excluded here and detectable from their own effective-bytes
   arithmetic (`flag_partial_fits` in `code/proxy_alignment.py`).
 - **No causal claim** is made about why the §6 displacement exists.
+
+---
+
+## Acknowledgments
+
+The experiment harnesses, gate implementations, and test suites were
+built and executed with substantial assistance from Claude (Fable 5,
+Anthropic), used as a research and engineering tool under the author's
+direction. All claims, measurements, and errors are the author's
+responsibility.
 
 ---
 
