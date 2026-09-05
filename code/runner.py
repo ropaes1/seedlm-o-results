@@ -1800,6 +1800,59 @@ def stage_equivalence(layers_limit: int | None, device: str, C: int, P: int,
 
 
 # ---------------------------------------------------------- stage: lm-eval
+def lmeval_scores(res: dict) -> dict[str, float]:
+    """``{task}/{metric}[/{filter}]`` -> float, from an lm-eval payload.
+
+    ``lm_eval.simple_evaluate`` returns one dict per task whose keys carry the
+    filter after a comma, next to a comma-less ``alias``::
+
+        "exact_match,strict-match"          <- the metric
+        "exact_match_stderr,strict-match"   <- its standard error
+        "exact_match,flexible-extract"      <- the same metric, other filter
+
+    The obvious filter -- ``not key.endswith("_stderr") and "," in key``,
+    tested on the RAW key -- has two defects, both fixed here (first fixed in
+    the N2 t2_lmeval builder):
+
+    1. ``endswith("_stderr")`` never fires, because the raw key ends with the
+       *filter* name, not with the metric, so the standard errors came out as
+       if they were quality metrics (``gsm8k/exact_match_stderr``).  We split
+       on the comma first, then drop ``_stderr``.
+    2. ``key.split(",")[0]`` collapses the two filters of one metric onto a
+       single key and whichever lm-eval yields last silently wins (gsm8k has
+       two).  We keep both, disambiguated by filter, and only on an actual
+       collision, so a single-filter metric still reads
+       ``ifeval/prompt_level_strict_acc`` and the naming stays identical
+       across variants, which run the same tasks with the same filters.
+
+    Args:
+        res: the dict returned by ``lm_eval.simple_evaluate``.
+
+    Returns:
+        ``{"<task>/<metric>[/<filter>]": float}``.  Comma-less keys such as
+        ``alias``, non-numeric values (lm-eval writes ``"N/A"`` for a missing
+        standard error) and bools are dropped.
+    """
+    scores: dict[str, float] = {}
+    for task, metrics in (res.get("results") or {}).items():
+        picked: list[tuple[str, str, float]] = []      # (metric, filter, val)
+        for key, val in metrics.items():
+            if not isinstance(val, (int, float)) or isinstance(val, bool):
+                continue
+            if "," not in key:                         # "alias" and friends
+                continue
+            metric, _, filt = key.partition(",")
+            if metric.endswith("_stderr"):
+                continue
+            picked.append((metric, filt, float(val)))
+        seen = [m for m, _, _ in picked]
+        for metric, filt, val in picked:
+            name = (f"{task}/{metric}" if seen.count(metric) == 1
+                    else f"{task}/{metric}/{filt}")
+            scores[name] = val
+    return scores
+
+
 def stage_lmeval(rows: list[dict], layers_limit: int | None, device: str,
                  C: int, P: int, n_seeds: int, tasks: list[str], limit: int,
                  variants: list[Variant]) -> list[dict]:
@@ -1822,7 +1875,10 @@ def stage_lmeval(rows: list[dict], layers_limit: int | None, device: str,
         variants: the matrix, to resolve names back to Variant objects.
 
     Returns:
-        Rows updated in place with an ``lmeval`` dict of ``{task: score}``.
+        Rows updated in place with an ``lmeval`` dict of
+        ``{"<task>/<metric>[/<filter>]": score}`` (see :func:`lmeval_scores`).
+        gsm8k reports two filters (strict-match, flexible-extract), so it now
+        yields two keys for ``exact_match`` where it used to yield one.
 
     Note:
         **Pod-tested only.**  ``lm-eval`` is deliberately not installed on the
@@ -1867,12 +1923,7 @@ def stage_lmeval(rows: list[dict], layers_limit: int | None, device: str,
         lm = HFLM(pretrained=ev.model_var, tokenizer=ev.tok, batch_size=1)
         res = lm_eval.simple_evaluate(model=lm, tasks=tasks, limit=limit,
                                       bootstrap_iters=0)
-        scores: dict[str, float] = {}
-        for task, metrics in (res.get("results") or {}).items():
-            for key, val in metrics.items():
-                if isinstance(val, (int, float)) and not key.endswith("_stderr") \
-                        and "," in key:
-                    scores[f"{task}/{key.split(',')[0]}"] = float(val)
+        scores = lmeval_scores(res)
         if row is not None:
             row["lmeval"] = scores
             row["lmeval_seconds"] = round(time.time() - t0, 1)
@@ -3309,6 +3360,41 @@ def selftest(device: str, C: int, P: int) -> bool:
     check("calib: malformed ids, missing corpus and legacy layout all refused",
           len(refused_calib) == 5 and legacy_refused,
           f"refused {refused_calib}, legacy refused={legacy_refused}")
+
+    # ------------------------------------------ lm-eval score extraction
+    # 18. Standard errors dropped, the two filters of one metric kept apart,
+    # alias / "N/A" / bools ignored.  No lm-eval import: this is the exact key
+    # shape ``simple_evaluate`` returns.
+    lme = lmeval_scores({"results": {
+        "gsm8k": {"alias": "gsm8k",
+                  "exact_match,strict-match": 0.4,
+                  "exact_match_stderr,strict-match": 0.03,
+                  "exact_match,flexible-extract": 0.5,
+                  "exact_match_stderr,flexible-extract": 0.03},
+        "ifeval": {"alias": "ifeval",
+                   "inst_level_strict_acc,none": 0.3,
+                   "inst_level_strict_acc_stderr,none": "N/A",
+                   "prompt_level_strict_acc,none": 0.2,
+                   "prompt_level_strict_acc_stderr,none": 0.01,
+                   "some_flag,none": True}}})
+    lme_gsm = {k: v for k, v in lme.items() if k.startswith("gsm8k/")}
+    lme_ife = {k: v for k, v in lme.items() if k.startswith("ifeval/")}
+    check("lmeval: no standard error survives extraction",
+          not any("_stderr" in k for k in lme), f"{sorted(lme)}")
+    check("lmeval: gsm8k keeps both filters, disambiguated",
+          lme_gsm == {"gsm8k/exact_match/strict-match": 0.4,
+                      "gsm8k/exact_match/flexible-extract": 0.5},
+          f"{lme_gsm}")
+    check("lmeval: single-filter metrics keep the bare name",
+          lme_ife == {"ifeval/inst_level_strict_acc": 0.3,
+                      "ifeval/prompt_level_strict_acc": 0.2},
+          f"{lme_ife}")
+    check("lmeval: alias, non-numeric and bool values dropped",
+          len(lme) == 4 and all(isinstance(v, float) for v in lme.values()),
+          f"{len(lme)} keys: {sorted(lme)}")
+    check("lmeval: empty and results-less payloads give {}",
+          lmeval_scores({}) == {} and lmeval_scores({"config": {}}) == {},
+          f"{lmeval_scores({})} {lmeval_scores({'config': {}})}")
 
     log(f"SELFTEST {'ALL PASS' if ok_all else 'FAILURES PRESENT'} "
         f"in {time.time() - t0:.1f}s")
